@@ -29,6 +29,7 @@ namespace FrameWork.Common
 
         void OnAwake()
         {
+            DontDestroyOnLoad(this.gameObject);
             if (_instance == null)
             {
                 _instance = this as T;
