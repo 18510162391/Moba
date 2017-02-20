@@ -5,7 +5,7 @@ using System.Net.Sockets;
 using System.Threading;
 using UnityEngine;
 
-
+public delegate void OnReceiveMsg(ref List<byte[]> cache);
 public class NetWorker
 {
     private Socket socket;
@@ -136,6 +136,7 @@ public class NetWorker
 
     #region Msg received
 
+
     private void ReveiveAsync()
     {
         do
@@ -155,6 +156,7 @@ public class NetWorker
 
                         //分包处理
 
+
                     }
                     catch (Exception)
                     {
@@ -164,10 +166,6 @@ public class NetWorker
                 }
             }
         } while (true);
-    }
-    private void onReceived()
-    {
-
     }
     #endregion
 }

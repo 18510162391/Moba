@@ -1,43 +1,38 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using UnityEngine;
 
-namespace FrameWork.Common
+public class UnitySingleton<T> : MonoBehaviour where T : Component
 {
-    public class UnitySingleton<T> : MonoBehaviour where T : Component
+    private static T _instance;
+    public static T Instance
     {
-        private static T _instance;
-        public static T Instance
+        get
         {
-            get
-            {
-                if (_instance == null)
-                {
-                    _instance = GameObject.FindObjectOfType<T>();
-                    if (_instance == null)
-                    {
-                        GameObject go = new GameObject();
-                        go.hideFlags = HideFlags.HideAndDontSave;
-                        _instance = go.AddComponent<T>();
-                    }
-                }
-                return _instance;
-            }
-        }
-
-        void OnAwake()
-        {
-            DontDestroyOnLoad(this.gameObject);
             if (_instance == null)
             {
-                _instance = this as T;
+                _instance = GameObject.FindObjectOfType<T>();
+                if (_instance == null)
+                {
+                    GameObject go = new GameObject();
+                    go.hideFlags = HideFlags.HideAndDontSave;
+                    _instance = go.AddComponent<T>();
+                }
             }
-            else
-            {
-                Destroy(this.gameObject);
-            }
+            return _instance;
         }
+    }
+
+    void OnAwake()
+    {
+        DontDestroyOnLoad(this.gameObject);
+        //if (_instance == null)
+        //{
+        //    _instance = this as T;
+        //}
+        //else
+        //{
+        //    Destroy(this.gameObject);
+        //}
     }
 }

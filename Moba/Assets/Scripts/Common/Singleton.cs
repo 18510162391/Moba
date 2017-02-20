@@ -1,21 +1,16 @@
 ﻿using UnityEngine;
-using System.Collections;
-
-namespace FrameWork.Common
+public class Singleton<T> where T : new()
 {
-    public class Singleton<T> where T : new()
+    private static T _instance;
+    public static T Instance
     {
-        private static T _instance;
-        public static T Instance
+        get
         {
-            get
+            if (_instance == null)
             {
-                if (_instance == null)
-                {
-                    _instance = new T();
-                }
-                return _instance;
+                _instance = new T();
             }
+            return _instance;
         }
     }
 }
